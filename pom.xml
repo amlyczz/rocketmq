@@ -326,6 +326,7 @@
                     <excludes>
                         <exclude>**/IT*.java</exclude>
                     </excludes>
+                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
             <plugin>

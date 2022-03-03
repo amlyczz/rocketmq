@@ -142,7 +142,9 @@ public class BrokerOuterAPI {
             final int bodyCrc32 = UtilAll.crc32(body);
             requestHeader.setBodyCrc32(bodyCrc32);
             final CountDownLatch countDownLatch = new CountDownLatch(nameServerAddressList.size());
+            //遍历所有nameSrv
             for (final String namesrvAddr : nameServerAddressList) {
+                //注册
                 brokerOuterExecutor.execute(new Runnable() {
                     @Override
                     public void run() {
@@ -181,7 +183,7 @@ public class BrokerOuterAPI {
         InterruptedException {
         RemotingCommand request = RemotingCommand.createRequestCommand(RequestCode.REGISTER_BROKER, requestHeader);
         request.setBody(body);
-
+        //单向发送
         if (oneway) {
             try {
                 this.remotingClient.invokeOneway(namesrvAddr, request, timeoutMills);
